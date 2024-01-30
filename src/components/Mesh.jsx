@@ -1,5 +1,5 @@
-import { Box, Plane } from "@react-three/drei";
-
+import { Box, Circle, Plane, Sphere } from "@react-three/drei";
+import * as THREE from "three";
 export default function Mesh() {
   return (
     <>
@@ -15,6 +15,21 @@ export default function Mesh() {
         castShadow>
         <meshStandardMaterial color={0xff0000} />
       </Box>
+      <Sphere
+        args={[0.5]}
+        position={[2, 0, -0.5]}
+        castShadow>
+        <meshStandardMaterial color={0xfff00} />
+      </Sphere>
+      <Circle
+        args={[1]}
+        position={[-2, 0, 0]}
+        castShadow>
+        <meshStandardMaterial
+          color={0x00ff00}
+          side={THREE.DoubleSide}
+        />
+      </Circle>
     </>
   );
 }
