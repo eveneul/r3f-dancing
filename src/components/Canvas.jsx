@@ -19,6 +19,7 @@ export default function CanvasComponents() {
     >
       <OrbitControls />
       <directionalLight
+        castShadow
         args={[0xffffff, 5]}
         position={[4, 4, 4]}
         shadow-camera-left={-25}
