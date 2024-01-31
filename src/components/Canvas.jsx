@@ -6,6 +6,7 @@ import { Dancer } from "./Dancer";
 import Light from "./Light";
 import Mesh from "./Mesh";
 import Modeling from "./Model";
+import PostProcesser from "./Postprocesser";
 
 export default function CanvasComponents() {
   return (
@@ -23,7 +24,7 @@ export default function CanvasComponents() {
     >
       <Controls />
       <Light />
-
+      <PostProcesser />
       <Mesh />
       {/* <Modeling /> */}
       <Dancer />

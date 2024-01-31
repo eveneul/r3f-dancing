@@ -10,6 +10,14 @@ export default function Mesh() {
         receiveShadow>
         <meshStandardMaterial />
       </Plane>
+      <Box
+        args={[1, 1, 1]}
+        position={[2, 0, 1]}>
+        <meshStandardMaterial
+          color={0xff0000}
+          roughness={0.2}
+          metalness={0.2}></meshStandardMaterial>
+      </Box>
     </>
   );
 }
