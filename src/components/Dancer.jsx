@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { useAnimations, useGLTF, useScroll } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
 function Dancer() {
   const { scene, animations } = useGLTF("/modeling/dancer.glb");
@@ -11,6 +12,12 @@ function Dancer() {
   useEffect(() => {
     actions["wave"].play();
   }, [actions, dancerRef, animations]);
+
+  const scroll = useScroll();
+
+  useFrame(() => {
+    console.log(scroll.offset); // lenis의 scroll progress와 비슷한 개념
+  });
 
   return (
     <>

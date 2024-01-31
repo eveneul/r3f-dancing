@@ -1,4 +1,4 @@
-import { Box, OrbitControls } from "@react-three/drei";
+import { Box, OrbitControls, ScrollControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React from "react";
 import * as THREE from "three";
@@ -23,8 +23,12 @@ function MainCanvas() {
 
   return (
     <Canvas {...canvasProps}>
-      <OrbitControls />
-      <Dancer />
+      <ScrollControls
+        pages={8} // 섹션이 8장이 있다
+        damping={0.25} // 스무스하게 이동하고자 할 때
+      >
+        <Dancer />
+      </ScrollControls>
     </Canvas>
   );
 }
