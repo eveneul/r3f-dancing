@@ -10,26 +10,6 @@ export default function Mesh() {
         receiveShadow>
         <meshStandardMaterial />
       </Plane>
-      <Box
-        args={[1, 1, 1]}
-        castShadow>
-        <meshStandardMaterial color={0xff0000} />
-      </Box>
-      <Sphere
-        args={[0.5]}
-        position={[2, 0, -0.5]}
-        castShadow>
-        <meshStandardMaterial color={0xfff00} />
-      </Sphere>
-      <Circle
-        args={[1]}
-        position={[-2, 0, 0]}
-        castShadow>
-        <meshStandardMaterial
-          color={0x00ff00}
-          side={THREE.DoubleSide}
-        />
-      </Circle>
     </>
   );
 }
