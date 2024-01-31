@@ -1,12 +1,10 @@
+import { Physics } from "@react-three/cannon";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Color } from "three";
 import Controls from "./Controls";
-import { Dancer } from "./Dancer";
 import Light from "./Light";
 import Mesh from "./Mesh";
-import Modeling from "./Model";
-import PostProcesser from "./Postprocesser";
 
 export default function CanvasComponents() {
   return (
@@ -24,10 +22,15 @@ export default function CanvasComponents() {
     >
       <Controls />
       <Light />
-      <PostProcesser />
-      <Mesh />
-      {/* <Modeling /> */}
-      <Dancer />
+      <Physics
+        gravity={[0, -9, 0]}
+        defaultContactMaterial={{
+          //기본적으로 모든 오브젝트에 적용될 마찰, 탄성
+          restitution: 1,
+          friction: 0.5,
+        }}>
+        <Mesh />
+      </Physics>
     </Canvas>
   );
 }

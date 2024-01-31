@@ -1,22 +1,55 @@
+import { useBox } from "@react-three/cannon";
 import { Box, Circle, Plane, Sphere } from "@react-three/drei";
-import * as THREE from "three";
 export default function Mesh() {
+  // 바닥 물리엔진
+  const [planeRef] = useBox(() => ({
+    args: [50, 1, 50],
+    type: "Static", // 충격을 받아도 움직이지 않게 설정
+    mass: 1,
+    position: [0, 0, 0],
+    material: {
+      // cannon상에서의 material
+      // 탄성, 마찰
+      restitution: 1,
+      friction: 0.5,
+    },
+    onCollide: () => {
+      // 충돌하고 났을 때 콜백함수
+      console.log("충돌");
+    },
+  }));
+
+  const [boxRef, api] = useBox(() => ({
+    args: [1, 1, 1],
+    mass: 1,
+    position: [-1, 2, 0],
+    material: {
+      restitution: 0.4,
+      friction: 0.2,
+    },
+  }));
+
   return (
     <>
-      <Plane
-        args={[10, 10]}
-        rotation-x={-Math.PI / 2}
-        position-y={-0.5}
-        receiveShadow>
-        <meshStandardMaterial />
-      </Plane>
+      {/* 왜 Plane을 쓰지 않았냐면 :: 두께가 없는 오브젝트에 물리엔진 넣으면 부자연스러움 */}
       <Box
+        args={[50, 1, 50]}
+        ref={planeRef}>
+        <meshStandardMaterial
+          color={0xfefefe}
+          roughness={0.3}
+          metalness={0.8}
+        />
+      </Box>
+      <Box
+        ref={boxRef}
         args={[1, 1, 1]}
-        position={[2, 0, 1]}>
+        position={[0, 1, 0]}>
         <meshStandardMaterial
           color={0xff0000}
-          roughness={0.2}
-          metalness={0.2}></meshStandardMaterial>
+          roughness={0.3}
+          metalness={0.8}
+        />
       </Box>
     </>
   );
