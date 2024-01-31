@@ -2,6 +2,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Color } from "three";
 import Controls from "./Controls";
+import { Dancer } from "./Dancer";
 import Light from "./Light";
 import Mesh from "./Mesh";
 import Modeling from "./Model";
@@ -24,7 +25,8 @@ export default function CanvasComponents() {
       <Light />
 
       <Mesh />
-      <Modeling />
+      {/* <Modeling /> */}
+      <Dancer />
     </Canvas>
   );
 }
