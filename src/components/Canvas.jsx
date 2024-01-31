@@ -15,7 +15,7 @@ export default function CanvasComponents() {
         aspect: window.innerWidth / window.innerHeight,
         near: 0.1,
         far: 1000,
-        position: [3, 3, 3],
+        position: [3, 30, 50],
       }}
       scene={{ background: new Color(0x000000) }}
       shadows="soft" // 그림자 생성
