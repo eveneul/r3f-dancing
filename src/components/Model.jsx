@@ -1,5 +1,6 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import { useState } from "react";
 import { useEffect, useRef } from "react";
 
 export default function Modeling() {
@@ -7,6 +8,8 @@ export default function Modeling() {
   const modelRef = useRef(null);
 
   const { actions } = useAnimations(animations, modelRef);
+
+  const [currentAnimation, setCurrentAnimation] = useState("wave");
 
   // 모델링 그림자 생성
   useEffect(() => {
@@ -16,9 +19,15 @@ export default function Modeling() {
         object.receiveShadow = true;
       }
     });
+  }, [scene]);
 
-    actions["twerk"].play();
-  }, [scene, actions]);
+  useEffect(() => {
+    actions[currentAnimation].fadeIn(1.5).play();
+
+    return () => {
+      actions[currentAnimation].fadeOut(1.5).stop();
+    };
+  }, [currentAnimation, actions]);
 
   useFrame((state, delta) => {
     // state: scene, renderer의 정보...
@@ -31,6 +40,14 @@ export default function Modeling() {
       object={scene}
       scale={0.01}
       position-y={0.4}
+      // onPointerUp={() => console.log("업")}
+      // onPointerDown={() => console.log("다운")}
+      onClick={() => {
+        setCurrentAnimation((prev) => {
+          if (prev === "wave") return "windmill";
+          return "wave";
+        });
+      }}
     />
   );
 }
