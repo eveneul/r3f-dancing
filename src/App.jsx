@@ -1,12 +1,13 @@
 import "./App.css";
-import CanvasComponents from "./components/Canvas";
+import MainCanvas from "./components/MainCanvas";
+import { Wrapper } from "./components/Wrapper";
 
 function App() {
   return (
     <>
-      <div className="canvas-wrapper">
-        <CanvasComponents />
-      </div>
+      <Wrapper>
+        <MainCanvas />
+      </Wrapper>
     </>
   );
 }
