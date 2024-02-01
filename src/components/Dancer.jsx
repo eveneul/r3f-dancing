@@ -7,7 +7,7 @@ import Loader from "./Loader";
 import gsap from "gsap";
 
 function Dancer() {
-  const [tl, setTl] = useState(gsap.timeline());
+  const [tl, setTl] = useState(gsap.timeline({}));
 
   const isEntered = useRecoilValue(isEnteredState);
 
@@ -35,8 +35,12 @@ function Dancer() {
   useEffect(() => {
     if (!isEntered || !dancerRef.current) return;
 
-    tl.from(dancerRef.current.rotation, { y: -4 * Math.PI, duration: 4 }, 0.5);
-  }, [isEntered, dancerRef.current]);
+    tl.from(dancerRef.current.rotation, { y: 2 * Math.PI, duration: 4 }, 0.5)
+      .from(dancerRef.current.position, { x: 3, duration: 4 }, "<")
+      .to(three.camera.position, { duration: 10, x: 2, z: 8 }, "<")
+      .to(three.camera.position, { duration: 10, x: 0, z: 6 })
+      .to(three.camera.position, { duration: 10, x: 0, z: 16 });
+  }, [isEntered, three.camera.position]);
 
   return (
     <>
