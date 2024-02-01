@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAnimations, useGLTF, useScroll } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useRecoilValue } from "recoil";
@@ -7,6 +7,8 @@ import Loader from "./Loader";
 import gsap from "gsap";
 
 function Dancer() {
+  const [tl, setTl] = useState(gsap.timeline());
+
   const isEntered = useRecoilValue(isEnteredState);
 
   const { scene, animations } = useGLTF("/modeling/dancer.glb");
@@ -23,7 +25,9 @@ function Dancer() {
   const scroll = useScroll();
 
   useFrame(() => {
-    // console.log(scroll.offset); // lenis의 scroll progress와 비슷한 개념
+    if (!isEntered) return;
+    tl.seek(scroll.offset * tl.duration());
+    // 타임라인을 스크롤 기반으로 제어할 수 있음
   });
 
   const three = useThree();
@@ -31,9 +35,8 @@ function Dancer() {
   useEffect(() => {
     if (!isEntered || !dancerRef.current) return;
 
-    gsap.fromTo(three.camera.position, { x: -5, y: 5, z: 5 }, { x: 0, y: 6, z: 12, duration: 2.5 });
-    gsap.fromTo(three.camera.rotation, { z: Math.PI }, { z: 0, duration: 2.5 });
-  }, [gsap, isEntered, dancerRef.current]);
+    tl.from(dancerRef.current.rotation, { y: -4 * Math.PI, duration: 4 }, 0.5);
+  }, [isEntered, dancerRef.current]);
 
   return (
     <>
