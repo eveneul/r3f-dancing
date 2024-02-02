@@ -12,8 +12,6 @@ import * as THREE from "three";
 import Light from "./Light";
 import DancingAnimation from "./animation/Dancing";
 
-let tl;
-
 function Dancer() {
   const isEntered = useRecoilValue(isEnteredState);
 
@@ -35,26 +33,22 @@ function Dancer() {
    */
   const dancingAnimation = new DancingAnimation(dancerRef.current, three.camera, isEntered);
 
+  const [tl, setTl] = useState(gsap.timeline());
   const scroll = useScroll();
 
   useFrame(() => {
     if (!isEntered) return;
     tl.seek(scroll.offset * tl.duration());
+    // 타임라인을 스크롤 기반으로 제어할 수 있게 선언
   });
 
-  console.log(tl);
-
   useEffect(() => {
-    if (!isEntered || !dancerRef.current) return;
-
-    tl = gsap.timeline();
-
-    dancingAnimation.entered();
-    tl.from(dancerRef.current.rotation, { y: -4 * Math.PI, duration: 2.5 }, 0.8)
-      .from(dancerRef.current.position, { duration: 3, x: 3 }, "<")
-      .to(three.camera.position, { x: 2, z: 8, duration: 10 }, "<")
-      .to(three.camera.position, { duration: 20, x: 0, z: 6 });
-  }, [dancerRef.current, three.camera, isEntered]);
+    if (!isEntered || !dancerRef.current || !tl) return;
+    // 0.5는 타임라인 상에서 0.5
+    tl.from(dancerRef.current.rotation, { duration: 4, y: -4 * Math.PI }, 0.5)
+      .from(dancerRef.current.position, { duration: 4, x: 3 }, "<")
+      .to(three.camera.position, { duration: 10, x: 2, z: 8 }, "<");
+  }, [three.camera.position, isEntered]);
 
   useEffect(() => {
     /** Animation */
