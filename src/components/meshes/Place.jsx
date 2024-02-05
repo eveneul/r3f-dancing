@@ -1,11 +1,11 @@
 import { Box } from "@react-three/drei";
 import React, { useRef } from "react";
+import { forwardRef } from "react";
 import * as THREE from "three";
-const Place = () => {
-  const boxRef = useRef(null);
+const Place = forwardRef((props, ref) => {
   const boxProps = {
     args: [100, 100, 100],
-    position: [0, 0, 0],
+    position: [0, -20, 0],
   };
 
   const boxMaterialProps = {
@@ -16,10 +16,10 @@ const Place = () => {
   return (
     <Box
       {...boxProps}
-      ref={boxRef}>
+      ref={ref}>
       <meshStandardMaterial {...boxMaterialProps} />
     </Box>
   );
-};
+});
 
 export default Place;
