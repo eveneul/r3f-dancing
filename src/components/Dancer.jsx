@@ -86,11 +86,11 @@ function Dancer() {
     gsap.to(star03Ref.current, { yoyo: true, duration: 4, repeat: -1, ease: "linear", size: 0.05 });
 
     // 0.5는 타임라인 상에서 0.5
-    tl.from(dancerRef.current.rotation, { duration: 4, y: -4 * Math.PI }, 0.5)
+    tl.from(dancerRef.current.rotation, { duration: 4, y: Math.PI }, 0.5)
       .from(dancerRef.current.position, { duration: 4, x: 3 }, "<")
       .to(three.camera.position, { duration: 10, x: 2, z: 8 }, "<")
       .to(colors, { duration: 10, placeMaterialColor: "#0c0400" }, "<")
-      .to(pivot.rotation, { duration: 10, y: Math.PI })
+      .to(pivot.rotation, { duration: 10, y: Math.PI * -2 })
       .to(three.camera.position, { duration: 10, x: -4, z: 12 }, "<")
       .to(three.camera.position, { duration: 10, x: 0, z: 6 })
       .to(three.camera.position, {
